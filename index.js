@@ -102,18 +102,21 @@ module.exports = class jfTranslations {
      * @method trn
      *
      * @param {Number} count    Valor a usar para determinar si se usa el plural o el singular.
-     * @param {String} singular Texto en singular.
-     * @param {String} plural   Texto en plural.
+     * @param {String} zero     Texto cuando `count = 0`.
+     * @param {String} one      Texto cuando `count = 1`.
+     * @param {String} plural   Texto cuando `count > 1`.
      * @param {Object} context  Contexto a usar para reemplazar variables.
      *
      * @return {String}
      */
-    trn(count, singular, plural, context = {})
+    trn(count, zero, one, plural, context = {})
     {
         return this.tr(
-            count > 1
-                ? plural
-                : singular,
+            count === 0
+                ? zero
+                : count === 1
+                    ? one
+                    : plural,
             context
         );
     }

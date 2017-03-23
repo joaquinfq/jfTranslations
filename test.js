@@ -5,10 +5,10 @@ const Translations = require('./index');
 Translations.i().poDir = __dirname;
 Translations.i().addLanguage('test', 'ui');
 let _values = [
-    'Traducción singular `arg1`',
-    'Traducción singular `arg1`',
-    'Traducción plural `arg1-arg2`',
-    'Traducción plural `arg1-arg2`'
+    'No tienes productos en tu cesta - Traducido',
+    'Tienes 1 producto en tu cesta - Traducido',
+    'Tienes 2 productos en tu cesta - Traducido',
+    'Tienes 3 productos en tu cesta - Traducido',
 ];
 _values.forEach(
     (value, index) =>
@@ -16,11 +16,11 @@ _values.forEach(
         assert.equal(
             Translations.i().trn(
                 index,
-                'Singular `{arg1}`',      // Si index < 2
-                'Plural `{arg1}-{arg2}`', // Si index > 1
+                'No tienes productos en tu cesta',
+                'Tienes 1 producto en tu cesta',
+                'Tienes {count} productos en tu cesta',
                 {
-                    arg1 : 'arg1',
-                    arg2 : 'arg2'
+                    count : index
                 }
             ),
             value
