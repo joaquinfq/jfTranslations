@@ -1,0 +1,15 @@
+{
+    "charset"      : "utf-8",
+    "translations" : {
+        "" : {
+            "Singular `{arg1}`"  : {
+                "msgid"  : "Singular `{arg1}`",
+                "msgstr" : ["Traducción singular `{arg1}`"]
+            },
+            "Plural `{arg1}-{arg2}`" : {
+                "msgid"  : "Plural `{arg1}-{arg2}`",
+                "msgstr" : ["Traducción plural `{arg1}-{arg2}`"]
+            }
+        }
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "version"      : "0.1.0",
+    "name"         : "jf-translations",
+    "author"       : "Joaquín Fernández",
+    "description"  : "Class for working with translations in your app.",
+    "keywords"     : [
+        "gettext",
+        "i18n",
+        "mo",
+        "po",
+        "translations"
+    ],
+    "license"      : "MIT",
+    "homepage"     : "http://www.joaquinfernandez.net",
+    "repository"   : {
+        "type" : "git",
+        "url"  : "https://github.com/joaquinfq/jfTranslations"
+    },
+    "scripts"      : {
+        "test" : "node test"
+    },
+    "dependencies" : {
+        "jf-tpl"       : "^0.1.0",
+        "node-gettext" : "^2.0.0-rc.1"
+    }
+}
