@@ -1,3 +1,4 @@
+const format  = require('util').format;
 const fs      = require('fs');
 const path    = require('path');
 const getText = new (require('node-gettext'))();
@@ -77,20 +78,59 @@ module.exports = class jfTranslations {
     /**
      * Traduce el texto especificado.
      * Si el texto incluye variables pueden especificarse en el contexto.
+     * Se puede usar dos formatos para las etiquetas:
+     *
+     * - Usando un formato parecido a `printf`:
+     * ```
+     * this.tr('El archivo %s ocupa %d bytes', '/tmp/file.js', 1234);
+     * ```
+     *
+     * - Usando un contexto:
+     * ```
+     * this.tr('El archivo {file} ocupa {size} bytes', { file: '/tmp/file.js', size: 1234 });
+     * ```
+     *
+     * Ambos formatos pueden combinarse en la misma etiqueta.
+     * Hay que tener presente que primero se resuelven los de
+     * tipo `printf` y luego los que usan contexto.
      *
      * @method tr
      *
-     * @param {String} label   Texto a traducir.
-     * @param {Object} context Contexto a usar para reemplazar variables.
+     * @param {String}        label  Texto a traducir.
+     * @param {Object|String} args Contexto a usar para reemplazar variables.
      *
      * @return {String}
+     *
+     * @see https://nodejs.org/api/util.html#util_util_format_format_args
      */
-    tr(label, context = {})
+    tr(label, ...args)
     {
+        const _context = {};
+        const _params  = [];
+        args.forEach(
+            arg =>
+            {
+                switch (typeof arg)
+                {
+                    case 'boolean':
+                        _params.push(arg ? 'TRUE' : 'FALSE');
+                        break;
+                    case 'number':
+                    case 'string':
+                        _params.push(arg);
+                        break;
+                    case 'object':
+                        if (arg)
+                        {
+                            Object.assign(_context, arg);
+                        }
+                }
+            }
+        );
         return jfTpl(
             {
-                context,
-                tpl : getText.gettext(label)
+                context : _context,
+                tpl     : format(getText.gettext(label), ..._params)
             }
         );
     }
@@ -115,8 +155,8 @@ module.exports = class jfTranslations {
             count === 0
                 ? zero
                 : count === 1
-                    ? one
-                    : plural,
+                ? one
+                : plural,
             context
         );
     }
@@ -133,7 +173,6 @@ module.exports = class jfTranslations {
         {
             instance = new this();
         }
-
         return instance;
     }
 };

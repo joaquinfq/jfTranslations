@@ -60,3 +60,27 @@ console.log(
     )
 ); // You have 20 items in your cart
 ```
+
+### Mixing formats
+
+You can mix `printf`-like format with context placeholders.
+
+`printf` placeholders are replaced before context placeholders and their 
+order is important. Context placeholders order is not important because
+each context is merged.
+
+```js
+console.log(
+    translations.tr(
+        'First file `{file}` has %d bytes and second file `%s` has {size} bytes.',
+        1234,                 // %d - First printf placeholder.
+        'file1.js',           // %s - Second printf placeholder.
+        {
+            file : 'file2.js' // {file}
+        },
+        {
+            size : 4567       // {size}
+        }
+    )
+); // First file `file1.js` has 1234 bytes and second file `file2.js` has 4567 bytes.',
+```
