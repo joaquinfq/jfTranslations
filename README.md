@@ -74,12 +74,12 @@ console.log(
     translations.tr(
         'First file `{file}` has %d bytes and second file `%s` has {size} bytes.',
         1234,                 // %d - First printf placeholder.
-        'file1.js',           // %s - Second printf placeholder.
-        {
-            file : 'file2.js' // {file}
-        },
+        'file2.js',           // %s - Second printf placeholder.
         {
             size : 4567       // {size}
+        },
+        {
+            file : 'file1.js' // {file}
         }
     )
 ); // First file `file1.js` has 1234 bytes and second file `file2.js` has 4567 bytes.',
