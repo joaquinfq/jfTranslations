@@ -105,28 +105,52 @@ module.exports = class jfTranslations {
      */
     tr(label, ...args)
     {
+        const _count   = label.split(/(?:^|[^%]|)%[djs]/).length - 1;
         const _context = {};
         const _params  = [];
         args.forEach(
             arg =>
             {
-                switch (typeof arg)
+                if (arg === null || arg === undefined)
                 {
-                    case 'boolean':
-                        _params.push(arg ? 'TRUE' : 'FALSE');
-                        break;
-                    case 'number':
-                    case 'string':
-                        _params.push(arg);
-                        break;
-                    case 'object':
-                        if (arg)
-                        {
-                            Object.assign(_context, arg);
-                        }
+                    // Evitamos que aparezcan textos como null o undefined.
+                    _params.push('');
+                }
+                else
+                {
+                    switch (typeof arg)
+                    {
+                        case 'boolean':
+                            _params.push(
+                                _params.length < _count
+                                    ? arg
+                                    ? 'TRUE'
+                                    : 'FALSE'
+                                    : ''
+                            );
+                            break;
+                        case 'number':
+                        case 'string':
+                            _params.push(
+                                _params.length < _count
+                                    ? arg
+                                    : ''
+                            );
+                            break;
+                        case 'object':
+                            if (arg)
+                            {
+                                Object.assign(_context, arg);
+                            }
+                            break;
+                    }
                 }
             }
         );
+        while (_params.length < _count)
+        {
+            _params.push('');
+        }
         return jfTpl(
             {
                 context : _context,
@@ -145,11 +169,11 @@ module.exports = class jfTranslations {
      * @param {String} zero     Texto cuando `count = 0`.
      * @param {String} one      Texto cuando `count = 1`.
      * @param {String} plural   Texto cuando `count > 1`.
-     * @param {Object} context  Contexto a usar para reemplazar variables.
+     * @param {Object|String}   args Contexto a usar para reemplazar variables.
      *
      * @return {String}
      */
-    trn(count, zero, one, plural, context = {})
+    trn(count, zero, one, plural, ...args)
     {
         return this.tr(
             count === 0
@@ -157,7 +181,7 @@ module.exports = class jfTranslations {
                 : count === 1
                 ? one
                 : plural,
-            context
+            ...args
         );
     }
 

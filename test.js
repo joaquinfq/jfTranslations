@@ -72,6 +72,21 @@ function testPlurals()
             );
         }
     );
+    _values.forEach(
+        (value, index) =>
+        {
+            assert.equal(
+                Translations.i().trn(
+                    index,
+                    'No tienes productos en tu cesta',
+                    'Tienes 1 producto en tu cesta',
+                    'Tienes %d productos en tu cesta',
+                    index
+                ).trim(),
+                value
+            );
+        }
+    );
 }
 testPlaceholders();
 testPlurals();

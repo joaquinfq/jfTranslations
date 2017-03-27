@@ -10,6 +10,9 @@
             },
             "Tienes {count} productos en tu cesta" : {
                 "msgstr" : ["Tienes {count} productos en tu cesta - Traducido"]
+            },
+            "Tienes %d productos en tu cesta" : {
+                "msgstr" : ["Tienes %d productos en tu cesta - Traducido"]
             }
         }
     }
