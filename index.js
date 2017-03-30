@@ -154,6 +154,7 @@ module.exports = class jfTranslations {
         return jfTpl(
             {
                 context : _context,
+                keep    : true,
                 tpl     : format(getText.gettext(label), ..._params)
             }
         );
