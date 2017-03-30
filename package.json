@@ -1,5 +1,5 @@
 {
-    "version": "0.1.5",
+    "version": "0.1.6",
     "name": "jf-translations",
     "author": "Joaquín Fernández",
     "description": "Class for working with translations in your app.",
@@ -20,7 +20,7 @@
         "test": "node test"
     },
     "dependencies": {
-        "jf-tpl": "^0.1.0",
+        "jf-tpl": "^0.1.1",
         "node-gettext": "^2.0.0-rc.1"
     }
 }
