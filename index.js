@@ -35,29 +35,38 @@ module.exports = class jfTranslations {
         this.poDir = poDir;
     }
 
+
     /**
      * Agrega un idioma a las traducciones.
      *
      * @method addLanguage
      *
-     * @param {String} code   Código del idioma a usar.
-     * @param {String} domain Dominio de las traducciones.
+     * @param {String}      code         Código del idioma a usar.
+     * @param {String}      domain       Dominio de las traducciones.
+     * @param {Object|null} translations Contenido de las traducciones. Si no se especifican se leen desde un archivo.
      */
-    addLanguage(code, domain = '')
+    addLanguage(code, domain = '', translations = null)
     {
-        const _dir = this.poDir;
-        if (_dir)
+        if (!domain)
         {
-            if (!domain)
+            domain = code;
+        }
+        if (!translations)
+        {
+            const _dir = this.poDir;
+            if (_dir)
             {
-                domain = code;
+                const _file = path.join(_dir, `${code}_${domain}.json`);
+                if (fs.existsSync(_file))
+                {
+                    translations = require(file);
+                }
             }
-            const _file = path.join(_dir, `${code}.${domain}.json`);
-            if (fs.existsSync(_file))
-            {
-                getText.addTranslations(code, domain, require(_file));
-                this.setLanguage(code, domain);
-            }
+        }
+        if (translations)
+        {
+            getText.addTranslations(code, domain, translations);
+            this.setLanguage(code, domain);
         }
     }
 
