@@ -12,7 +12,7 @@ data structure of parsed JSON translations files.
 ### Examples
 
 ```js
-File: translations/en.ui.json
+// File: translations/en.ui.json
 {
     "charset"      : "utf-8",
     "translations" : {

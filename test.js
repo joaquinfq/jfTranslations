@@ -1,5 +1,5 @@
 const assert       = require('assert');
-const Translations = require('./index');
+const Translations = require('.');
 // Llamamos a i() en vez de almacenar la referencia y así verificamos
 // también que se devuelva la misma instancia ya configurada.
 Translations.i().poDir = __dirname;
