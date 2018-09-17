@@ -27,9 +27,9 @@ data structure of parsed JSON translations files.
 
 ```js
 // You can use it as singleton 
-const translations = require('jf-translations').i();
+const translations = require('jf-translations/src/Browser').i();
 // Or using new operator. 
-const Translations = require('jf-translations');
+const Translations = require('jf-translations/src/Browser');
 const translations = new Translations();
 //
 translations.poDir = __dirname + '/translations';

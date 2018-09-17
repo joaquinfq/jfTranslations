@@ -1,5 +1,5 @@
 const format  = require('util').format;
-const getText = new (require('node-gettext'))();
+const gettext = new (require('node-gettext'))();
 const jfTpl   = require('jf-tpl');
 /**
  * Instancia para usar como singleton la clase.
@@ -33,9 +33,20 @@ module.exports = class jfTranslationsBrowser
         }
         if (translations)
         {
-            getText.addTranslations(code, domain, translations);
+            this.gettext().addTranslations(code, domain, translations);
             this.setLanguage(code, domain);
         }
+    }
+
+    /**
+     * Retorna la instancia del manejar de las traducciones.
+     * Las clases hijas pueden reimplementar este método para usar otro manejador.
+     *
+     * @return {GetText} Manejador de las traducciones.
+     */
+    gettext()
+    {
+        return gettext;
     }
 
     /**
@@ -48,8 +59,9 @@ module.exports = class jfTranslationsBrowser
      */
     setLanguage(code, domain = '')
     {
-        getText.setLocale(code);
-        getText.setTextDomain(domain || code);
+        const _gettext = this.gettext();
+        _gettext.setLocale(code);
+        _gettext.setTextDomain(domain || code);
     }
 
     /**
@@ -132,7 +144,7 @@ module.exports = class jfTranslationsBrowser
             {
                 context : _context,
                 keep    : true,
-                tpl     : format(getText.gettext(label), ..._params)
+                tpl     : format(this.gettext().gettext(label), ..._params)
             }
         );
     }
