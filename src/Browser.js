@@ -57,7 +57,7 @@ module.exports = class jfTranslationsBrowser
     {
         const _gettext = this.gettext();
         _gettext.setLocale(code);
-        _gettext.setTextDomain(domain || code);
+        _gettext.setTextDomain(domain);
     }
 
     /**
@@ -109,8 +109,8 @@ module.exports = class jfTranslationsBrowser
                             _params.push(
                                 _params.length < _count
                                     ? arg
-                                    ? 'TRUE'
-                                    : 'FALSE'
+                                        ? 'TRUE'
+                                        : 'FALSE'
                                     : ''
                             );
                             break;
