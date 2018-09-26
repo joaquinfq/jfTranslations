@@ -27,10 +27,6 @@ module.exports = class jfTranslationsBrowser
      */
     addLanguage(code, domain = '', translations = null)
     {
-        if (!domain)
-        {
-            domain = code;
-        }
         if (translations)
         {
             this.gettext().addTranslations(code, domain, translations);
