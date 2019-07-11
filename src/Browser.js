@@ -1,6 +1,6 @@
 const format  = require('util').format;
 const gettext = new (require('node-gettext'))();
-const jfTpl   = require('jf-tpl');
+const jfTpl   = require('@jf/tpl');
 /**
  * Instancia para usar como singleton la clase.
  *
